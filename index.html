@@ -13,15 +13,16 @@
     <div class="title">
         <h1>Reaction Pathway Finder</h1>
     </div>
-    <div class="input-container">
-        <form onsubmit="input(event)">
-            <input type="text" placeholder="Initial" id="initial">
-            <input type="text" placeholder="Product" id="product">
-            <button type="submit">Submit</button>
-        </form>
-    </div>
-    <div id="output">
-    </div>
+    <div class="container">
+        <div class="input-container">
+            <form onsubmit="input(event)">
+                <input type="text" placeholder="Initial" id="initial">
+                <input type="text" placeholder="Product" id="product">
+                <input type="number" placeholder="Length" id="length">
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div><div id="output"></div>
 </body>
 <script src="script.js"></script>
 </html>

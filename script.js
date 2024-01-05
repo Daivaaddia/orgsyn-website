@@ -128,9 +128,19 @@ function dfs(curr, dest, path, visited) {
 function input(event) {
     event.preventDefault();
     paths = [];
+    let outputPaths = [];
     let outputsHTML = '';
+    let isFiltered = false;
+
+
     let init = document.getElementById("initial").value;
     let product = document.getElementById("product").value;
+    let targetLen = document.getElementById("length").value;
+
+    if (targetLen.length !== 0) {
+        targetLen = parseInt(targetLen);
+        isFiltered = true;
+    }
 
     if (init.length === 0 || product.length === 0) {
         document.getElementById("output").innerHTML = "Please input both an initial and product compound!";
@@ -142,6 +152,8 @@ function input(event) {
         return;
     }
 
+    // Check if length is valid, or make it so that only valid inputs can be entered
+
     find_paths(init, product);
 
     if (paths.length === 0) {
@@ -149,8 +161,19 @@ function input(event) {
         return;
     }
     
+    // filter paths
+    if (!isFiltered) {
+        outputPaths = paths;
+    } else {
+        paths.forEach((path) => {
+            if (path.length === targetLen) {
+                outputPaths.push(path);
+            }
+        })
+    }
+
     let numPaths = 1;
-    paths.forEach((path) => {
+    outputPaths.forEach((path) => {
         outputsHTML += ` ${numPaths}. `;
         for (const j in path) {
             outputsHTML += path[j];
