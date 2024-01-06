@@ -72,7 +72,7 @@ for (const edge of carboxyEdges) {
 }
 
 graph.addVertex('Ester');
-const esterEdges = ['Carboxylic Acids'];
+const esterEdges = ['Carboxylic Acid'];
 for (const edge of esterEdges) {
     graph.addEdge('Ester', edge);
 }
@@ -134,7 +134,7 @@ function dfs(curr, dest, path, visited) {
     if (curr === dest) {
         paths.push(path);
     }
-    
+
     for (const child of graph.adjList.get(curr)) {
         curr = child;
         if (!visited.includes(child)) {
@@ -161,9 +161,10 @@ function input(event) {
     let outputsHTML = '';
     let isFiltered = false;
 
-
-    let init = document.getElementById("initial").value;
-    let product = document.getElementById("product").value;
+    let init = document.getElementById("initial").value.toLowerCase();
+    init = init.charAt(0).toUpperCase() + init.slice(1);
+    let product = document.getElementById("product").value.toLowerCase();
+    product = product.charAt(0).toUpperCase() + product.slice(1);
     let targetLen = document.getElementById("length").value;
 
     if (targetLen.length !== 0) {
@@ -189,6 +190,8 @@ function input(event) {
         document.getElementById("output").innerHTML = "No pathways found!";
         return;
     }
+
+    paths = sortPaths(paths);
     
     // filter paths
     if (!isFiltered) {
@@ -200,7 +203,6 @@ function input(event) {
             }
         })
     }
-
 
     let numPaths = 1;
     outputPaths.forEach((path) => {
@@ -216,4 +218,21 @@ function input(event) {
     })
 
     document.getElementById("output").innerHTML = outputsHTML;
+}
+
+function sortPaths(pathsArr) {
+    let noSwaps = false;
+    while (!noSwaps) {
+        noSwaps = true;
+        for (let i = 0; i < pathsArr.length - 1; i++) {
+            if (pathsArr[i + 1].length < pathsArr[i].length) {
+                let tmp = pathsArr[i];
+                pathsArr[i] = pathsArr[i + 1];
+                pathsArr[i + 1] = tmp;
+                noSwaps = false;
+            }
+        }
+    }
+
+    return pathsArr;
 }
