@@ -42,7 +42,7 @@ for (const edge of alkaneEdges) {
 }
 
 graph.addVertex('Alkene');
-const alkeneEdges = ['Alcohol', 'Alkane', 'Carboxylic Acid', 'Ketone'];
+const alkeneEdges = ['Alcohol', 'Alkane', 'Carboxylic Acid', 'Ketone', 'Halogenoalkane'];
 for (const edge of alkeneEdges) {
     graph.addEdge('Alkene', edge);
 }
@@ -60,7 +60,7 @@ for (const edge of haloalkaneEdges) {
 }
 
 graph.addVertex('Alcohol');
-const alcEdges = ['Halogenoalkane', 'Alkene', 'Ketone', 'Carboxylic Acid', 'Ester'];
+const alcEdges = ['Halogenoalkane', 'Alkene', 'Ketone', 'Aldehyde', 'Carboxylic Acid', 'Ester'];
 for (const edge of alcEdges) {
     graph.addEdge('Alcohol', edge);
 }
@@ -71,25 +71,53 @@ for (const edge of carboxyEdges) {
     graph.addEdge('Carboxylic Acid', edge);
 }
 
+graph.addVertex('Ester');
+const esterEdges = ['Carboxylic Acids'];
+for (const edge of esterEdges) {
+    graph.addEdge('Ester', edge);
+}
+
 graph.addVertex('Ketone');
-const ketoneEdges = ['Nitrile', 'Alcohol', 'Carboxylic Acid'];
+const ketoneEdges = ['Nitrile', 'Alcohol'];
 for (const edge of ketoneEdges) {
     graph.addEdge('Ketone', edge);
 }
 
+graph.addVertex('Aldehyde');
+const aldehydeEdges = ['Nitrile', 'Alcohol', 'Carboxylic Acid'];
+for (const edge of aldehydeEdges) {
+    graph.addEdge('Aldehyde', edge);
+}
+
+graph.addVertex('Acyl Chloride');
+const acylEdges = ['Ester', 'Carboxylic Acid', 'Amide'];
+for (const edge of acylEdges) {
+    graph.addEdge('Acyl Chloride', edge);
+}
+
 graph.addVertex('Amine');
+const amineEdges = ['Amide'];
+for (const edge of amineEdges) {
+    graph.addEdge('Amine', edge);
+}
+
+graph.addVertex('Amide');
+const amideEdges = ['Carboxylic Acid', 'Amine'];
+for (const edge of amideEdges) {
+    graph.addEdge('Amide', edge);
+}
+
 graph.addVertex('Nitrile');
+const nitrileEdges = ['Amine', 'Carboxylic Acid'];
+for (const edge of nitrileEdges) {
+    graph.addEdge('Nitrile', edge);
+}
+
 graph.addVertex('Nitrobenzene');
 graph.addVertex('Halobenzene');
 graph.addVertex('Alkylbenzene');
-graph.addVertex('Ester');
-graph.addVertex('Acyl Chloride');
-
 
 //graph.printGraph();
-
-//console.log("-----------------------------------");
-
 
 // find all paths from source to dest
 let paths = [];
