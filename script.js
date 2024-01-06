@@ -34,6 +34,7 @@ class Graph {
 }
 
 const graph = new Graph();
+
 graph.addVertex('Alkane');
 const alkaneEdges = ['Halogenoalkane'];
 for (const edge of alkaneEdges) {
@@ -171,6 +172,7 @@ function input(event) {
             }
         })
     }
+
 
     let numPaths = 1;
     outputPaths.forEach((path) => {

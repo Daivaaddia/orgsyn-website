@@ -14,12 +14,16 @@
         <h1>Reaction Pathway Finder</h1>
     </div>
     <div class="container">
-        <div class="input-container">
+        <div class="main-container">
             <form onsubmit="input(event)">
-                <input type="text" placeholder="Initial" id="initial">
-                <input type="text" placeholder="Product" id="product">
-                <input type="number" placeholder="Length" id="length">
-                <button type="submit">Submit</button>
+                <div class="text-input-container">
+                    <input type="text" placeholder="Initial" class="compound-input" id="initial">
+                    <input type="text" placeholder="Product" class="compound-input" id="product">
+                </div>
+                <div class="length-submit-container">
+                    <input type="number" placeholder="Any" id="length">
+                    <button type="submit" id="submit">Submit</button>
+                </div>
             </form>
         </div>
     </div><div id="output"></div>
