@@ -76,12 +76,6 @@ for (const edge of alkeneEdges) {
     graph.addEdge('Alkene', edge);
 }
 
-graph.addVertex('Benzene');
-const benzeneEdges = ['Nitrobenzene', 'Halobenzene', 'Alkylbenzene']; //'Benzene with Haloalkane Side Chain', 'Benzene with Carboxyl Side Chain'
-for (const edge of benzeneEdges) {
-    graph.addEdge('Benzene', edge);
-}
-
 graph.addVertex('Halogenoalkane');
 const haloalkaneEdges = ['Alcohol', 'Alkene', 'Amine', 'Nitrile'];
 for (const edge of haloalkaneEdges) {
@@ -142,38 +136,133 @@ for (const edge of nitrileEdges) {
     graph.addEdge('Nitrile', edge);
 }
 
-graph.addVertex('Nitrobenzene');
-graph.addVertex('Halobenzene');
-graph.addVertex('Alkylbenzene');
+// graph.addVertex('Benzene');
+// const benzeneEdges = ['Nitrobenzene', 'Halobenzene', 'Alkylbenzene']; //'Benzene with Haloalkane Side Chain', 'Benzene with Carboxyl Side Chain'
+// for (const edge of benzeneEdges) {
+//     graph.addEdge('Benzene', edge);
+// }
+
+// graph.addVertex('Nitrobenzene');
+// graph.addVertex('Halobenzene');
+// graph.addVertex('Alkylbenzene');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const reactions = new rxnMap();
 
 const frs = 'Free radical substitution';
-const reflux = 'reflux';
 const eAdd = 'Electrophilic addition';
+const oxdn = 'Oxidation';
+const redn = 'Reduction';
+const nuSubs = 'Nucleophilic substitution';
+const nuAdd = 'Nucleophilic addition';
+const addElim = 'Addition elimination';
 
 let detail = new rxnDetail('Halogen + UV light', frs)
-reactions.addRxn('Alkane Halo', detail);
+reactions.addRxn('Alkane Halogenoalkane', detail);
 
-detail = new rxnDetail('Steam + 330C + 6MPa + conc. H3PO4', eAdd);
+detail = new rxnDetail('Steam + 330&#176C + 6 MPa + conc. H<sub>3</sub>PO<sub>4</sub>', eAdd);
 reactions.addRxn('Alkene Alcohol', detail);
 
+detail = new rxnDetail('H<sub>2</sub>, Ni catalyst, 150&#176C, 5 atm', eAdd);
+reactions.addRxn('Alkene Alkane', detail);
 
+detail = new rxnDetail('Hot, acidified, concentrated KMnO<sub>4</sub>', oxdn)
+detail.addNote('Alkene must have exactly one H adjacent to the C=C double bond');
+reactions.addRxn('Alkene Carboxylic acid', detail);
 
+detail = new rxnDetail('Hot, acidified, concentrated KMnO<sub>4</sub>', oxdn);
+detail.addNote('Alkene must have no H adjacent to the C=C double bond');
+reactions.addRxn('Alkene Ketone', detail);
 
+detail = new rxnDetail('Hydrogen halide (e.g. HBr) at room temperature', eAdd);
+reactions.addRxn('Alkene Halogenoalkane', detail);
+
+detail = new rxnDetail('NaOH(aq) + heat', nuSubs);
+reactions.addRxn('Halogenoalkane Alcohol', detail);
+
+detail = new rxnDetail('Ethanolic NaOH + reflux', 'Elimination');
+reactions.addRxn('Halogenoalkane Alkene', detail);
+
+detail = new rxnDetail('NH<sub>3</sub> in ethanol + heat under pressure', nuSubs);
+reactions.addRxn('Halogenoalkane Amine', detail);
+
+detail = new rxnDetail('Ethanolic KCN + reflux', nuSubs);
+reactions.addRxn('Halogenoalkane Nitrile', detail);
+
+detail = new rxnDetail('Concentrated hydrogen halide (e.g. HBr) + heat', nuSubs);
+reactions.addRxn('Alcohol Halogenoalkane', detail);
+
+detail = new rxnDetail('Concentrated H<sub>2</sub>SO<sub>4</sub> + heat', detail);
+reactions.addRxn('Alcohol Alkene', detail);
+
+detail = new rxnDetail('KMnO<sub>4</sub>(aq) + H<sub>2</sub>SO<sub>4</sub> + heat', oxdn);
+detail.addNote('Must be secondary alcohol');
+reactions.addRxn('Alcohol Ketone', detail);
+
+detail = new rxnDetail('KMnO<sub>4</sub>(aq) + H<sub>2</sub>SO<sub>4</sub> + heat', oxdn);
+detail.addNote('Must be primary alcohol');
+reactions.addRxn('Alcohol Aldehyde', detail);
+
+detail = new rxnDetail('KMnO<sub>4</sub>(aq) + H<sub>2</sub>SO<sub>4</sub> + reflux', oxdn);
+detail.addNote('Must be primary alcohol');
+reactions.addRxn('Alcohol Carboxylic acid', detail);
+
+detail = new rxnDetail('Carboxylic acid + conc. H<sub>2</sub>SO<sub>4</sub> + heat or acyl chloride at room temperature', 'Esterification');
+reactions.addRxn('Alcohol Ester', detail);
+
+detail = new rxnDetail('LiAlH<sub>4</sub> in dry ether', redn);
+reactions.addRxn('Carboxylic acid Alcohol', detail);
+
+detail = new rxnDetail('Alcohol + conc. H<sub>2</sub>SO<sub>4</sub> + heat', 'Esterification');
+reactions.addRxn('Carboxylic acid Ester', detail);
+
+detail = new rxnDetail('PCl<sub>5</sub> or PCl<sub>3</sub> + heat', 'Placeholder');
+reactions.addRxn('Carboxylic acid Acyl chloride', detail);
+
+detail = new rxnDetail('Dilute acid (e.g. H<sub>2</sub>SO<sub>4</sub>(aq)) + heat', 'Hydrolisis');
+reactions.addRxn('Ester Carboxylic acid', detail);
+
+detail = new rxnDetail('HCN + KCN + reflux', nuAdd);
+reactions.addRxn('Ketone Nitrile', detail);
+
+detail = new rxnDetail('LiAlH<sub>4</sub> in dry ether', redn);
+reactions.addRxn('Ketone Alcohol', detail);
+
+detail = new rxnDetail('HCN + KCN + reflux', nuAdd);
+reactions.addRxn('Aldehyde Nitrile', detail);
+
+detail = new rxnDetail('LiAlH<sub>4</sub> in dry ether', redn);
+reactions.addRxn('Aldehyde Alcohol', detail);
+
+detail = new rxnDetail('NaBH<sub>4</sub> + aqueous alkaline solution + heat', redn);
+reactions.addRxn('Aldehyde Carboxylic acid', detail);
+
+detail = new rxnDetail('Alcohol + reflux in anhydrous conditions', addElim);
+reactions.addRxn('Acyl chloride Ester', detail);
+
+detail = new rxnDetail('Water', addElim);
+reactions.addRxn('Acyl chloride Carboxylic acid', detail);
+
+detail = new rxnDetail('NH<sub>3</sub> in anhydrous conditions', addElim);
+reactions.addRxn('Acyl chloride Amide', detail);
+
+detail = new rxnDetail('Acyl chloride at room temperature', addElim);
+reactions.addRxn('Amine Amide', detail);
+
+detail = new rxnDetail('Dilute acid (e.g. H<sub>2</sub>SO<sub>4</sub>(aq)) + heat', 'Hydrolisis');
+reactions.addRxn('Amide Carboxylic acid', detail);
+
+detail = new rxnDetail('LiAlH<sub>4</sub> in dry ether (or any reducing agent', redn);
+reactions.addRxn('Amide Amine', detail);
+
+detail = new rxnDetail('LiAlH<sub>4</sub> in dry ether (or any reducing agent', redn);
+reactions.addRxn('Nitrile Amine', detail);
+
+detail = new rxnDetail('Dilute acid (e.g. H<sub>2</sub>SO<sub>4</sub>(aq)) + heat', 'Hydrolisis');
+reactions.addRxn('Nitrile Carboxylic acid', detail);
 
 reactions.printMap();
-
-
-
-
-
-
-
-
-
 
 // find all paths from source to dest
 let paths = [];
