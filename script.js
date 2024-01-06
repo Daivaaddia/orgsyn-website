@@ -33,6 +33,35 @@ class Graph {
     }
 }
 
+class rxnDetail {
+    constructor(rnc, type) {
+        this.rnc = rnc;
+        this.type = type;
+    }
+
+    addNote(note) {
+        this.note = note;
+    }
+}
+
+class rxnMap {
+    constructor() {
+        this.map = new Map;
+    }
+
+    addRxn(name, detail) {
+        this.map.set(name, detail);
+    }
+
+    printMap() {
+        for (const key of this.map.keys()) {
+            console.log(key + " -> ");
+            console.log(this.map.get(key));
+            console.log('\n');
+        }
+    }
+}
+
 const graph = new Graph();
 
 graph.addVertex('Alkane');
@@ -42,7 +71,7 @@ for (const edge of alkaneEdges) {
 }
 
 graph.addVertex('Alkene');
-const alkeneEdges = ['Alcohol', 'Alkane', 'Carboxylic Acid', 'Ketone', 'Halogenoalkane'];
+const alkeneEdges = ['Alcohol', 'Alkane', 'Carboxylic acid', 'Ketone', 'Halogenoalkane'];
 for (const edge of alkeneEdges) {
     graph.addEdge('Alkene', edge);
 }
@@ -60,19 +89,19 @@ for (const edge of haloalkaneEdges) {
 }
 
 graph.addVertex('Alcohol');
-const alcEdges = ['Halogenoalkane', 'Alkene', 'Ketone', 'Aldehyde', 'Carboxylic Acid', 'Ester'];
+const alcEdges = ['Halogenoalkane', 'Alkene', 'Ketone', 'Aldehyde', 'Carboxylic acid', 'Ester'];
 for (const edge of alcEdges) {
     graph.addEdge('Alcohol', edge);
 }
 
-graph.addVertex('Carboxylic Acid');
-const carboxyEdges = ['Alcohol', 'Ester', 'Acyl Chloride'];
+graph.addVertex('Carboxylic acid');
+const carboxyEdges = ['Alcohol', 'Ester', 'Acyl chloride'];
 for (const edge of carboxyEdges) {
-    graph.addEdge('Carboxylic Acid', edge);
+    graph.addEdge('Carboxylic acid', edge);
 }
 
 graph.addVertex('Ester');
-const esterEdges = ['Carboxylic Acid'];
+const esterEdges = ['Carboxylic acid'];
 for (const edge of esterEdges) {
     graph.addEdge('Ester', edge);
 }
@@ -84,15 +113,15 @@ for (const edge of ketoneEdges) {
 }
 
 graph.addVertex('Aldehyde');
-const aldehydeEdges = ['Nitrile', 'Alcohol', 'Carboxylic Acid'];
+const aldehydeEdges = ['Nitrile', 'Alcohol', 'Carboxylic acid'];
 for (const edge of aldehydeEdges) {
     graph.addEdge('Aldehyde', edge);
 }
 
-graph.addVertex('Acyl Chloride');
-const acylEdges = ['Ester', 'Carboxylic Acid', 'Amide'];
+graph.addVertex('Acyl chloride');
+const acylEdges = ['Ester', 'Carboxylic acid', 'Amide'];
 for (const edge of acylEdges) {
-    graph.addEdge('Acyl Chloride', edge);
+    graph.addEdge('Acyl chloride', edge);
 }
 
 graph.addVertex('Amine');
@@ -102,13 +131,13 @@ for (const edge of amineEdges) {
 }
 
 graph.addVertex('Amide');
-const amideEdges = ['Carboxylic Acid', 'Amine'];
+const amideEdges = ['Carboxylic acid', 'Amine'];
 for (const edge of amideEdges) {
     graph.addEdge('Amide', edge);
 }
 
 graph.addVertex('Nitrile');
-const nitrileEdges = ['Amine', 'Carboxylic Acid'];
+const nitrileEdges = ['Amine', 'Carboxylic acid'];
 for (const edge of nitrileEdges) {
     graph.addEdge('Nitrile', edge);
 }
@@ -117,7 +146,34 @@ graph.addVertex('Nitrobenzene');
 graph.addVertex('Halobenzene');
 graph.addVertex('Alkylbenzene');
 
-//graph.printGraph();
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const reactions = new rxnMap();
+
+const frs = 'Free radical substitution';
+const reflux = 'reflux';
+const eAdd = 'Electrophilic addition';
+
+let detail = new rxnDetail('Halogen + UV light', frs)
+reactions.addRxn('Alkane Halo', detail);
+
+detail = new rxnDetail('Steam + 330C + 6MPa + conc. H3PO4', eAdd);
+reactions.addRxn('Alkene Alcohol', detail);
+
+
+
+
+
+reactions.printMap();
+
+
+
+
+
+
+
+
+
 
 // find all paths from source to dest
 let paths = [];
@@ -151,7 +207,7 @@ function dfs(curr, dest, path, visited) {
     }
 }
 
-//find_paths('Alkene', 'Carboxylic Acid');
+//find_paths('Alkene', 'Carboxylic acid');
 //console.log(paths);
 
 function input(event) {
