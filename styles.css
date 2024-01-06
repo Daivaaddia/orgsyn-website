@@ -41,6 +41,12 @@
     gap: 2rem;
 }
 
+.length-text {
+    padding-right: 0.6rem;
+    font-weight: 500;
+    font-size: 1.15rem;
+}
+
 #length {
     width: 3em;
     height: 2em;
