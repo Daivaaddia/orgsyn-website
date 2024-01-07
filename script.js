@@ -349,9 +349,9 @@ function input(event) {
         })
     }
 
-    let numPaths = 1;
+    //let numPaths = 1;
     outputPaths.forEach((path) => {
-        outputsHTML += ` ${numPaths}. `;
+        //outputsHTML += ` ${numPaths}. `;
         for (const j in path) {
             outputsHTML += path[j];
             if (j < path.length - 1) {
@@ -359,7 +359,7 @@ function input(event) {
             }
         }
         outputsHTML += '<br><br>';
-        numPaths++;
+        //numPaths++;
     })
 
     document.getElementById("output").innerHTML = outputsHTML;
