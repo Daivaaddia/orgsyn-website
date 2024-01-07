@@ -74,4 +74,13 @@ input::-webkit-inner-spin-button {
     padding: 0.2em;
 }
 
+.output-container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
 
+#output {
+    font-size: 1.1rem;
+    text-align: center;
+}
