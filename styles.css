@@ -17,7 +17,6 @@
 }
 
 .main-container {
-    position: relative;
     outline: solid 2px black;
     width: clamp(450px, 50%, 700px);
     padding: 4rem 1rem;
@@ -74,13 +73,51 @@ input::-webkit-inner-spin-button {
     padding: 0.2em;
 }
 
-.output-container {
+#output-container {
     margin-top: 30px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 #output {
     font-size: 1.1rem;
     text-align: center;
+}
+
+.pathway {
+    text-align: center;
+    padding-bottom: 0.5rem;
+}
+
+.reaction-container {
+    align-items: center;
+    outline: solid 2px gray;
+    border-radius: 8px;
+    padding: 1em;
+    margin-bottom: 1em;
+    width: clamp(450px, 50%, 700px);
+}
+
+.reaction-container-header {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.expand-button {
+    font-size: .8rem;
+    padding: .2rem;
+}
+
+.reaction-detail {
+    text-align: left;
+    font-size: 1rem;
+}
+
+.step-subtitle {
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding-top: 1em;
 }
