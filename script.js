@@ -136,7 +136,7 @@ for (const edge of nitrileEdges) {
     graph.addEdge('Nitrile', edge);
 }
 
-// graph.addVertex('Benzene');
+graph.addVertex('Benzene');
 // const benzeneEdges = ['Nitrobenzene', 'Halobenzene', 'Alkylbenzene']; //'Benzene with Haloalkane Side Chain', 'Benzene with Carboxyl Side Chain'
 // for (const edge of benzeneEdges) {
 //     graph.addEdge('Benzene', edge);
@@ -164,7 +164,7 @@ reactions.addRxn('Alkane Halogenoalkane', detail);
 detail = new rxnDetail('Steam + 330&#176C + 6 MPa + conc. H<sub>3</sub>PO<sub>4</sub>', eAdd);
 reactions.addRxn('Alkene Alcohol', detail);
 
-detail = new rxnDetail('H<sub>2</sub>, Ni catalyst, 150&#176C, 5 atm', eAdd);
+detail = new rxnDetail('H<sub>2</sub> + Ni catalyst + 150&#176C + 5 atm', eAdd);
 reactions.addRxn('Alkene Alkane', detail);
 
 detail = new rxnDetail('Hot, acidified, concentrated KMnO<sub>4</sub>', oxdn)
@@ -262,7 +262,7 @@ reactions.addRxn('Nitrile Amine', detail);
 detail = new rxnDetail('Dilute acid (e.g. H<sub>2</sub>SO<sub>4</sub>(aq)) + heat', 'Hydrolisis');
 reactions.addRxn('Nitrile Carboxylic acid', detail);
 
-reactions.printMap();
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // find all paths from source to dest
 let paths = [];
@@ -296,9 +296,6 @@ function dfs(curr, dest, path, visited) {
     }
 }
 
-//find_paths('Alkene', 'Carboxylic acid');
-//console.log(paths);
-
 function input(event) {
     event.preventDefault();
     paths = [];
@@ -317,22 +314,22 @@ function input(event) {
         isFiltered = true;
     }
 
+    output = document.getElementById('output-container');
+
     if (init.length === 0 || product.length === 0) {
-        document.getElementById("output").innerHTML = "Please input both an initial and product compound!";
+        output.innerHTML = "Please input both an initial and product compound!";
         return;
     }
 
     if (!graph.doesExist(init) || !graph.doesExist(product)) {
-        document.getElementById("output").innerHTML = "Compound doesn't exist!";
+        output.innerHTML = "Compound doesn't exist!";
         return;
     }
-
-    // Check if length is valid, or make it so that only valid inputs can be entered
 
     find_paths(init, product);
 
     if (paths.length === 0) {
-        document.getElementById("output").innerHTML = "No pathways found!";
+        output.innerHTML = "No pathways found!";
         return;
     }
 
@@ -347,22 +344,14 @@ function input(event) {
                 outputPaths.push(path);
             }
         })
+
+        if (outputPaths.length === 0) {
+            output.innerHTML = "No pathways of length " + targetLen + " found!";
+            return;
+        }
     }
 
-    //let numPaths = 1;
-    outputPaths.forEach((path) => {
-        //outputsHTML += ` ${numPaths}. `;
-        for (const j in path) {
-            outputsHTML += path[j];
-            if (j < path.length - 1) {
-                outputsHTML += ' -> ';
-            }
-        }
-        outputsHTML += '<br><br>';
-        //numPaths++;
-    })
-
-    document.getElementById("output").innerHTML = outputsHTML;
+    printPathways(outputPaths);
 }
 
 function sortPaths(pathsArr) {
@@ -380,4 +369,87 @@ function sortPaths(pathsArr) {
     }
 
     return pathsArr;
+}
+
+function printPathways(outputPaths) {
+    const outputContainer = document.getElementById('output-container');
+    outputContainer.innerHTML = '';
+
+    for (let i = 0; i < outputPaths.length; i++) {
+        // draw pathway title
+        let path = outputPaths[i];
+        let pathwayNameText = '';
+
+        const reactionContainerDiv = document.createElement('div');
+        reactionContainerDiv.classList.add('reaction-container');
+        outputContainer.appendChild(reactionContainerDiv);
+
+        const reactionContainerHeaderDiv = document.createElement('div');
+        reactionContainerHeaderDiv.classList.add('reaction-container-header');
+        reactionContainerDiv.appendChild(reactionContainerHeaderDiv);
+
+        // give id to reaction container
+        reactionContainerDiv.setAttribute('id', 'reaction-' + (i + 1));
+
+        const pathwayName = document.createElement('span');
+        pathwayName.classList.add('pathway');
+
+        for (const j in path) {
+            pathwayNameText += path[j];
+            if (j < path.length - 1) {
+                pathwayNameText += ' -> ';
+            }
+        }
+        pathwayName.appendChild(document.createTextNode(pathwayNameText));
+        reactionContainerHeaderDiv.appendChild(pathwayName);
+
+        const expandButton = document.createElement('button');
+        expandButton.appendChild(document.createTextNode('Expand!'));
+        expandButton.classList.add('expand-button');
+        expandButton.setAttribute('onclick', 'expandReaction(this.parentElement.parentElement.id)');
+
+        reactionContainerHeaderDiv.appendChild(expandButton);
+    }
+
+}
+
+function expandReaction(parentContainerID) {
+    const parentContainer = document.getElementById(parentContainerID);
+    const existingChild = parentContainer.querySelector('.reaction-detail');
+    if (existingChild !== null) {
+        existingChild.remove();
+        return;
+    } 
+
+    const detailDiv = document.createElement('div');
+    detailDiv.classList.add('reaction-detail');
+    
+    const titleSpan = parentContainer.querySelector('span');
+    const pathway = titleSpan.textContent.split(' -> ');
+    
+    for (let i = 0; i < pathway.length - 1; i++) {
+        let stepName = pathway[i] + ' ' + pathway[i + 1];
+        let stepObj = reactions.map.get(stepName);
+        let newLine = document.createElement('br');
+
+        const stepSubtitle = document.createElement('div');
+        stepSubtitle.classList.add('step-subtitle');
+        stepSubtitle.innerHTML = pathway[i] + ' -> ' + pathway[i + 1];
+        detailDiv.appendChild(stepSubtitle);
+
+        let typeDiv = document.createElement('div');
+        typeDiv.innerHTML = 'Reaction type: ' + stepObj.type;
+        detailDiv.appendChild(typeDiv);
+
+        let rncDiv = document.createElement('div');
+        rncDiv.innerHTML = 'Reagents and conditions: ' + stepObj.rnc;
+        detailDiv.appendChild(rncDiv);
+
+        if (stepObj.hasOwnProperty('note')) {
+            let noteDiv = document.createElement('div');
+            noteDiv.innerHTML = 'Note: ' + reactions.map.get(stepName).note;
+            detailDiv.appendChild(noteDiv);
+        }
+    }
+    parentContainer.appendChild(detailDiv);
 }
