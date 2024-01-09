@@ -4,10 +4,68 @@
     font-family: 'Poppins';
 }
 
+html {
+    background-color: #FFFAFA;
+}
+
+#flask-icon {
+    position: absolute;
+}
+
+#bubble-1 {
+    animation: bubble-up-1 3s infinite cubic-bezier(0,0,.37,1.01);
+}
+
+#bubble-2 {
+    animation: bubble-up-2 2s infinite ease-out;
+}
+
+#bubble-3 {
+    animation: bubble-up-3 4s infinite ease-in-out;
+}
+
+@keyframes bubble-up-1 {
+    from {
+        transform: translateY(10%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(-5%);
+        opacity: 1;
+    }
+}
+
+@keyframes bubble-up-2 {
+    from {
+        transform: translateY(4%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(-10%);
+        opacity: 1;
+    }
+}
+
+@keyframes bubble-up-3 {
+    from {
+        transform: translateY(7%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(-4%);
+        opacity: 1;
+    }
+}
+
+
 .title {
     padding: 1em;
     font-size: 1.2rem;
     text-align: center;
+    color: #1f1235;
 }
 
 .container {
@@ -17,11 +75,14 @@
 }
 
 .main-container {
-    outline: solid 2px black;
+    outline: solid 2px #1f1235;
+    background-color: #e2daeb;
     width: clamp(450px, 50%, 700px);
     padding: 4rem 1rem;
     padding-bottom: 3rem;
     border-radius: 25px;
+    position: relative;
+    box-shadow: 6px 10px black;
 }
 
 .text-input-container {
@@ -41,17 +102,21 @@
 }
 
 .length-text {
+    color: #1f1235;
     padding-right: 0.6rem;
     font-weight: 500;
     font-size: 1.15rem;
 }
 
 #length {
+    border: 1.8px solid #1f1235; 
     width: 3em;
     height: 2em;
     font-size: 1.1rem;
     border-radius: 8px;
     text-align: center;
+    background-color: #f4effc;
+    box-shadow: 2px 2px gray;
 }
 
 input::-webkit-outer-spin-button,
@@ -61,6 +126,10 @@ input::-webkit-inner-spin-button {
 }
 
 .compound-input {
+    background-color: #f4effc;
+    box-shadow: 2px 2px gray;
+    z-index: 99;
+    border: 1.8px solid #1f1235; 
     font-size: 1.1rem;
     width: 8em;
     height: 2em;
@@ -68,10 +137,24 @@ input::-webkit-inner-spin-button {
     border-radius: 8px;
 }
 
-#submit {
-    font-size: 1.1rem;
-    padding: 0.2em;
+#submit-button {
+    z-index: 99;
+    color: #1f1235;
+    background-color: #ff6e6c;
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 0.5em;
+    border-radius: 4px;
+    border: 0;
+    transition: 0.35s;    
 }
+
+#submit-button:hover {
+    transform: translateY(-5%);
+    box-shadow: 1px 2px gray;
+    cursor: pointer;
+}
+
 
 #output-container {
     margin-top: 30px;
@@ -93,7 +176,7 @@ input::-webkit-inner-spin-button {
 
 .reaction-container {
     align-items: center;
-    outline: solid 2px gray;
+    outline: solid 2px #1f1235;
     border-radius: 8px;
     padding: 1em;
     margin-bottom: 1em;

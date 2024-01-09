@@ -12,9 +12,21 @@
 <body>
     <div class="title">
         <h1>Reaction Pathway Finder</h1>
-    </div>
+    </div>  
     <div class="container">
         <div class="main-container">
+            <svg id="flask-icon" width="300" height="300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="flask">
+                <path id="flask-liquid" d="M40 61.5L43.5 54.5H56.5L59 59L60 60.5V62L59.5 63L58.5 64H41.5L40.5 63L40 61.5Z" fill="#67568C"/>
+                <g id="bubbles">
+                <circle id="bubble-1" cx="46" cy="57" r="1" fill="#DACDF7"/>
+                <circle id="bubble-2" cx="51" cy="62" r="1" fill="#DACDF7"/>
+                <path id="bubble-3" d="M56 58C56 58.5523 55.5523 59 55 59C54.4477 59 54 58.5523 54 58C54 57.4477 54.4477 57 55 57C55.5523 57 56 57.4477 56 58Z" fill="#DACDF7"/>
+                </g>
+                <path id="flask-top" d="M57 55H43L45.5926 50H54.4074L57 55Z"/>
+                <path id="flask-body" d="M47.7676 40H52.4229M47.7676 40V44.2208C47.7676 44.5718 47.6752 46.0085 47.4997 46.3125L40.3214 60.4411C39.4082 62.0228 40.5497 64 42.3761 64H57.8143C59.6408 64 60.7823 62.0228 59.8691 60.4411L52.6909 46.3126C52.5153 46.0086 52.4229 44.572 52.4229 44.2209V40M47.7676 40H47.1739M52.4229 40H53.0374M43 54.5H57" stroke="black"/>
+                </g>
+            </svg>
             <form onsubmit="input(event)">
                 <div class="text-input-container">
                     <input type="text" placeholder="Initial" class="compound-input" id="initial">
@@ -25,7 +37,7 @@
                         <span class="length-text">Length:</span>
                         <input type="number" placeholder="Any" id="length">
                     </div>
-                    <button type="submit" id="submit">React!</button>
+                    <button type="submit" id="submit-button">React!</button>
                 </div>
             </form>
         </div>
