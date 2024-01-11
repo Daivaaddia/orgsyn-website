@@ -233,3 +233,37 @@ transition: transform .2s ease-out;
 transform: rotate(180deg);
 transition: transform .2s ease-out;
 }
+
+@media (max-width: 512px) {
+    .main-container {
+        padding: 2rem 0.5rem;
+        width: 400px;
+    }
+
+    .text-input-container {
+        flex-direction: column;
+        gap: 35px;
+    }
+
+    .compound-input {
+        padding: 1em 2em;
+        font-size: 1.3rem;
+    }
+
+    #length {
+        font-size: 1.3rem;
+    }
+
+    .length-text {
+        font-size: 1.35rem; 
+    }
+
+    #submit-button {
+        font-size: 1.3rem;
+        padding: 1em;
+    }
+
+    .reaction-container {
+        width: 400px;
+    }
+}

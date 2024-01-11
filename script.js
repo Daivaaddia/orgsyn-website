@@ -193,7 +193,7 @@ reactions.addRxn('Halogenoalkane Nitrile', detail);
 detail = new rxnDetail('Concentrated hydrogen halide (e.g. HBr) + heat', nuSubs);
 reactions.addRxn('Alcohol Halogenoalkane', detail);
 
-detail = new rxnDetail('Concentrated H<sub>2</sub>SO<sub>4</sub> + heat', detail);
+detail = new rxnDetail('Concentrated H<sub>2</sub>SO<sub>4</sub> + heat', 'Dehydration');
 reactions.addRxn('Alcohol Alkene', detail);
 
 detail = new rxnDetail('KMnO<sub>4</sub>(aq) + H<sub>2</sub>SO<sub>4</sub> + heat', oxdn);
