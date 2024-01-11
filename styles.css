@@ -256,9 +256,11 @@ transition: transform .2s ease-out;
 }
 
 @media (max-width: 512px) {
+    
     .main-container {
         padding: 2rem 0.5rem;
-        width: 400px;
+        width: 360px;
+        box-shadow: none;
     }
 
     .text-input-container {
@@ -289,14 +291,14 @@ transition: transform .2s ease-out;
     }
 
     #flask-icon {
-        top: 49.5%;
+        top: 50.5%;
         right: 40%;
         width: 80%;
         height: 80%;
     }
 
     #flask-setup-svg {
-        top: 66%;
+        top: 67%;
         left: 58%;
         width: 45%;
         height: 45%;
