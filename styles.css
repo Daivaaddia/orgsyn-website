@@ -287,7 +287,7 @@ transition: transform .2s ease-out;
     }
 
     .reaction-container {
-        width: 400px;
+        width: 360px;
     }
 
     #flask-icon {
@@ -302,5 +302,15 @@ transition: transform .2s ease-out;
         left: 58%;
         width: 45%;
         height: 45%;
+    }
+}
+
+@media (max-width: 400px) {
+    .main-container {
+        width: 320px;
+    }
+
+    .reaction-container {
+        width: 320px;
     }
 }
