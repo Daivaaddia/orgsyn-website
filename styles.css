@@ -11,6 +11,10 @@ html {
 
 #flask-icon {
     position: absolute;
+    top: 13.5%;
+    right: 15%;
+    width: 135%;
+    height: 135%;
 }
 
 #bubble-1 {
@@ -66,6 +70,14 @@ html {
     60% {transform: translateX(-5px)}
     75% {tranform: translateX(3px)}
     100% {transform: translateX(0px)}
+}
+
+#flask-setup-svg {
+    position: absolute;
+    top: 37.5%;
+    left: 47%;
+    width: 80%;
+    height: 80%;  
 }
 
 .title {
@@ -265,5 +277,12 @@ transition: transform .2s ease-out;
 
     .reaction-container {
         width: 400px;
+    }
+
+    #flask-icon {
+        top: 49.5%;
+        right: 40%;
+        width: 80%;
+        height: 80%;
     }
 }
