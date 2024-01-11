@@ -120,6 +120,10 @@ html {
     padding-bottom: 1.5rem;
 }
 
+.length-container {
+    z-index: 99;
+}
+
 .length-submit-container {
     display: flex;
     flex-direction: column;
