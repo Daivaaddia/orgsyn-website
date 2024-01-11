@@ -318,11 +318,19 @@ function input(event) {
 
     if (init.length === 0 || product.length === 0) {
         output.innerHTML = "Please input both an initial and product compound!";
+        document.querySelector('.main-container').style.animation = 'invalid-input .3s';
+        setTimeout(function() {
+            document.querySelector('.main-container').style.animation = '';
+        }, 300);
         return;
     }
 
     if (!graph.doesExist(init) || !graph.doesExist(product)) {
         output.innerHTML = "Compound doesn't exist!";
+        document.querySelector('.main-container').style.animation = 'invalid-input .3s';
+        setTimeout(function() {
+            document.querySelector('.main-container').style.animation = '';
+        }, 300);
         return;
     }
 
@@ -371,6 +379,8 @@ function sortPaths(pathsArr) {
     return pathsArr;
 }
 
+arrowSvg = '<svg fill="#000000" width="25px" height="25px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g data-name="Layer 2"><g data-name="arrow-ios-downward"><rect width="24" height="24" opacity="0"/><path d="M12 16a1 1 0 0 1-.64-.23l-6-5a1 1 0 1 1 1.28-1.54L12 13.71l5.36-4.32a1 1 0 0 1 1.41.15 1 1 0 0 1-.14 1.46l-6 4.83A1 1 0 0 1 12 16z"/></g></g></svg>';
+
 function printPathways(outputPaths) {
     const outputContainer = document.getElementById('output-container');
     outputContainer.innerHTML = '';
@@ -403,12 +413,13 @@ function printPathways(outputPaths) {
         pathwayName.appendChild(document.createTextNode(pathwayNameText));
         reactionContainerHeaderDiv.appendChild(pathwayName);
 
-        const expandButton = document.createElement('button');
-        expandButton.appendChild(document.createTextNode('Expand!'));
-        expandButton.classList.add('expand-button');
-        expandButton.setAttribute('onclick', 'expandReaction(this.parentElement.parentElement.id)');
-
-        reactionContainerHeaderDiv.appendChild(expandButton);
+        const expandArrow = document.createElement('span');
+        expandArrow.classList.add('svg-container');
+        expandArrow.innerHTML = arrowSvg;
+        reactionContainerHeaderDiv.appendChild(expandArrow);
+        expandArrow.addEventListener('click', () => {
+            expandReaction(reactionContainerDiv.id);
+        });
     }
 
 }
@@ -416,11 +427,13 @@ function printPathways(outputPaths) {
 function expandReaction(parentContainerID) {
     const parentContainer = document.getElementById(parentContainerID);
     const existingChild = parentContainer.querySelector('.reaction-detail');
+    const arrow = parentContainer.querySelector('.reaction-container-header').querySelector('.svg-container');
     if (existingChild !== null) {
+        arrow.className = 'svg-container close';
         existingChild.remove();
         return;
     } 
-
+    arrow.className = 'svg-container open';
     const detailDiv = document.createElement('div');
     detailDiv.classList.add('reaction-detail');
     
