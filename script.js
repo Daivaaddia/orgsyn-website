@@ -469,10 +469,10 @@ function expandReaction(parentContainerID) {
 
 function autocomplete(inp) {
     let parent = inp.parentNode;
-    
+
     document.addEventListener("click", (event) => {
         if (parent.querySelector('.autocomplete-div') !== null) { 
-            if (event.target.closest('.autocomplete-div')) {
+            if (event.target.closest('.autocomplete-div') || event.target.closest('.autocomplete')) {
                 return;
             } 
             parent.querySelector('.autocomplete-div').remove();
@@ -481,35 +481,44 @@ function autocomplete(inp) {
     
     let arr = Array.from(graph.adjList.keys());
     let outputs = [];
+
     inp.addEventListener('input', () => {
-        if (parent.querySelector('.autocomplete-div') !== null) {
-            parent.querySelector('.autocomplete-div').remove();
+        updateAutocomplete(inp, parent, arr);
+    })
+
+    inp.addEventListener('click', () => {
+        updateAutocomplete(inp, parent, arr);
+    })
+}
+
+function updateAutocomplete(inp, parent, arr) {
+    if (parent.querySelector('.autocomplete-div') !== null) {
+        parent.querySelector('.autocomplete-div').remove();
+    }
+
+    let text = inp.value;
+    outputs = [];
+    container = document.createElement('div');
+    container.classList.add('autocomplete-div');
+    parent.appendChild(container);
+
+    arr.forEach(comp => {
+        if (text.toLowerCase() === comp.substr(0, text.length).toLowerCase()) {
+            let outputComp = '<strong>' + comp.substr(0, text.length) + '</strong>' + comp.substr(text.length);
+            outputs.push(outputComp);
         }
+    })
 
-        let text = inp.value;
-        outputs = [];
-        container = document.createElement('div');
-        container.classList.add('autocomplete-div');
-        parent.appendChild(container);
-
-        arr.forEach(comp => {
-            if (text.toLowerCase() === comp.substr(0, text.length).toLowerCase()) {
-                let outputComp = '<strong>' + comp.substr(0, text.length) + '</strong>' + comp.substr(text.length);
-                outputs.push(outputComp);
-            }
+    outputs.sort();
+    outputs.forEach(out => {
+        let newItem = document.createElement('div');
+        newItem.classList.add('autocomplete-item');
+        newItem.setAttribute("id", 'autocomplete-item-' + out);
+        newItem.innerHTML = out;
+        newItem.addEventListener("click", () => {
+            autocompleteClick(newItem);
         })
-
-        outputs.sort();
-        outputs.forEach(out => {
-            let newItem = document.createElement('div');
-            newItem.classList.add('autocomplete-item');
-            newItem.setAttribute("id", 'autocomplete-item-' + out);
-            newItem.innerHTML = out;
-            newItem.addEventListener("click", () => {
-                autocompleteClick(newItem);
-            })
-            container.appendChild(newItem);
-        })
+        container.appendChild(newItem);
     })
 }
 
