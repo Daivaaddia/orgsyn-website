@@ -174,7 +174,6 @@ input::-webkit-inner-spin-button {
 .autocomplete-div {
     z-index: 99;
     position: absolute;
-    outline: solid 1px black;
     width: 100%;
 }
 
