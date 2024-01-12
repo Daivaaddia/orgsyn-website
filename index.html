@@ -15,7 +15,6 @@
     </div>  
     <div class="container">
         <div class="main-container">
-
             <svg id="flask-icon" width="350" height="350" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="flask">
                 <path id="flask-liquid" d="M40 61.5L43.5 54.5H56.5L59 59L60 60.5V62L59.5 63L58.5 64H41.5L40.5 63L40 61.5Z" fill="#67568C"/>
@@ -28,7 +27,6 @@
                 <path id="flask-body" d="M47.7676 40H52.4229M47.7676 40V44.2208C47.7676 44.5718 47.6752 46.0085 47.4997 46.3125L40.3214 60.4411C39.4082 62.0228 40.5497 64 42.3761 64H57.8143C59.6408 64 60.7823 62.0228 59.8691 60.4411L52.6909 46.3126C52.5153 46.0086 52.4229 44.572 52.4229 44.2209V40M47.7676 40H47.1739M52.4229 40H53.0374M43 54.5H57" stroke="black"/>
                 </g>
             </svg>
-
             <svg id="flask-setup-svg" width="169" height="162" viewBox="0 0 169 162" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle id="drop" cx="55" cy="61" r="2" fill="#ffbf00"/>
                 <g id="flask-setup">
@@ -39,11 +37,14 @@
                 <path id="Vector 2" d="M44 110.427H66.5" stroke="black" stroke-width="1.5"/>
                 </g>
             </svg>
-
             <form autocomplete="off" onsubmit="input(event)">
                 <div class="text-input-container">
-                    <input type="text" placeholder="Initial" class="compound-input" id="initial">
-                    <input type="text" placeholder="Product" class="compound-input" id="product">
+                    <div class="autocomplete">
+                        <input id='initial-input' type="text" placeholder="Initial" class="compound-input" id="initial">
+                    </div>
+                    <div class="autocomplete">
+                        <input id='product-input' type="text" placeholder="Product" class="compound-input" id="product">
+                    </div>
                 </div>
                 <div class="length-submit-container">
                     <div class="length-container">

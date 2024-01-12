@@ -121,7 +121,7 @@ html {
 }
 
 .length-container {
-    z-index: 99;
+    z-index: 98;
 }
 
 .length-submit-container {
@@ -167,8 +167,30 @@ input::-webkit-inner-spin-button {
     border-radius: 8px;
 }
 
-#submit-button {
+.autocomplete {
+    position: relative;
+}
+
+.autocomplete-div {
     z-index: 99;
+    position: absolute;
+    outline: solid 1px black;
+    width: 100%;
+}
+
+.autocomplete-item {
+    background-color: #f4effc;
+    outline: solid 1px black;
+    cursor: pointer;
+    padding: 0.6em;
+    transition: 0.3s;
+}
+
+.autocomplete-item:hover {
+    background-color: #e2daeb;
+}
+#submit-button {
+    z-index: 98;
     background-color: #ff6e6c;
     font-size: 1.2rem;
     font-weight: 500;
@@ -265,6 +287,10 @@ transition: transform .2s ease-out;
         padding: 2rem 0.5rem;
         width: 360px;
         box-shadow: none;
+    }
+
+    .autocomplete-item {
+        padding: 1em;
     }
 
     .text-input-container {

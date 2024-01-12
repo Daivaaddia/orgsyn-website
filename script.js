@@ -466,3 +466,63 @@ function expandReaction(parentContainerID) {
     }
     parentContainer.appendChild(detailDiv);
 }
+
+function autocomplete(inp) {
+    let parent = inp.parentNode;
+    
+    document.addEventListener("click", (event) => {
+        if (parent.querySelector('.autocomplete-div') !== null) { 
+            if (event.target.closest('.autocomplete-div')) {
+                return;
+            } 
+            parent.querySelector('.autocomplete-div').remove();
+        }
+    })
+    
+    let arr = Array.from(graph.adjList.keys());
+    let outputs = [];
+    inp.addEventListener('input', () => {
+        if (parent.querySelector('.autocomplete-div') !== null) {
+            parent.querySelector('.autocomplete-div').remove();
+        }
+
+        let text = inp.value;
+        outputs = [];
+        container = document.createElement('div');
+        container.classList.add('autocomplete-div');
+        parent.appendChild(container);
+
+        arr.forEach(comp => {
+            if (text.toLowerCase() === comp.substr(0, text.length).toLowerCase()) {
+                let outputComp = '<strong>' + comp.substr(0, text.length) + '</strong>' + comp.substr(text.length);
+                outputs.push(outputComp);
+            }
+        })
+
+        outputs.sort();
+        outputs.forEach(out => {
+            let newItem = document.createElement('div');
+            newItem.classList.add('autocomplete-item');
+            newItem.setAttribute("id", 'autocomplete-item-' + out);
+            newItem.innerHTML = out;
+            newItem.addEventListener("click", () => {
+                autocompleteClick(newItem);
+            })
+            container.appendChild(newItem);
+        })
+    })
+}
+
+function autocompleteClick(item) {
+    console.log(item);
+    let parentDiv =  item.parentNode.parentNode;
+    let form = parentDiv.querySelector('.compound-input');
+    let output = item.innerHTML.replace('<strong>', '').replace('</strong>', '');
+    form.value = output;
+    parentDiv.querySelector('.autocomplete-div').remove();
+}
+
+
+
+autocomplete(document.getElementById('initial-input'));
+autocomplete(document.getElementById('product-input'));
