@@ -336,6 +336,7 @@ function input(event) {
 
     if (init === product) {
         output.innerHTML = "No loops!!!";
+        return;
     }
 
     find_paths(init, product);
