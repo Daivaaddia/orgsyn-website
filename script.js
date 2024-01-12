@@ -524,5 +524,5 @@ function autocompleteClick(item) {
 
 
 
-autocomplete(document.getElementById('initial-input'));
-autocomplete(document.getElementById('product-input'));
+autocomplete(document.getElementById('initial'));
+autocomplete(document.getElementById('product'));
