@@ -334,6 +334,10 @@ function input(event) {
         return;
     }
 
+    if (init === product) {
+        output.innerHTML = "No loops!!!";
+    }
+
     find_paths(init, product);
 
     if (paths.length === 0) {
