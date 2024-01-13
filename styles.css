@@ -95,6 +95,12 @@ html {
     text-align: center;
 }
 
+.subtitle {
+    font-size: 0.75rem;
+    text-align: center;
+    padding-bottom: 3em;
+}
+
 .container {
     display: flex;
     align-items: center;
