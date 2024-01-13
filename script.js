@@ -137,14 +137,26 @@ for (const edge of nitrileEdges) {
 }
 
 graph.addVertex('Benzene');
-// const benzeneEdges = ['Nitrobenzene', 'Halobenzene', 'Alkylbenzene']; //'Benzene with Haloalkane Side Chain', 'Benzene with Carboxyl Side Chain'
-// for (const edge of benzeneEdges) {
-//     graph.addEdge('Benzene', edge);
-// }
+const benzeneEdges = ['Nitrobenzene', 'Halobenzene', 'Alkylbenzene'];
+for (const edge of benzeneEdges) {
+     graph.addEdge('Benzene', edge);
+}
 
-// graph.addVertex('Nitrobenzene');
-// graph.addVertex('Halobenzene');
-// graph.addVertex('Alkylbenzene');
+graph.addVertex('Nitrobenzene');
+graph.addEdge('Nitrobenzene', 'Phenylamine');
+
+graph.addVertex('Alkylbenzene');
+graph.addEdge('Alkylbenzene', 'Benzoic acid');
+
+graph.addVertex('Phenylamine');
+graph.addEdge('Phenylamine', 'Benzene diazonium chloride')
+
+graph.addVertex('Benzene diazonium chloride');
+graph.addEdge('Benzene diazonium chloride', 'Azo dye');
+
+graph.addVertex('Azo dye');
+graph.addVertex('Benzoic acid');
+graph.addVertex('Halobenzene');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -152,6 +164,7 @@ const reactions = new rxnMap();
 
 const frs = 'Free radical substitution';
 const eAdd = 'Electrophilic addition';
+const eSubs = 'Electrophilic substitution';
 const oxdn = 'Oxidation';
 const redn = 'Reduction';
 const nuSubs = 'Nucleophilic substitution';
@@ -261,6 +274,28 @@ reactions.addRxn('Nitrile Amine', detail);
 
 detail = new rxnDetail('Dilute acid (e.g. H<sub>2</sub>SO<sub>4</sub>(aq)) + heat', 'Hydrolisis');
 reactions.addRxn('Nitrile Carboxylic acid', detail);
+
+detail = new rxnDetail('Conc. HNO<sub>3</sub> + Conc. H<sub>2</sub>SO<sub>4</sub> + reflux at 55&#176C', eSubs);
+reactions.addRxn('Benzene Nitrobenzene', detail);
+
+detail = new rxnDetail('Halogen carrier (e.g. AlCl<sub>3</sub> or FeBr<sub>3</sub>) + halogen (e.g. Cl<sub>2</sub> or Br<sub>2</sub> respectively) + anhydrous', eSubs);
+reactions.addRxn('Benzene Halobenzene', detail);
+
+detail = new rxnDetail('AlCl<sub>3</sub> + R-Cl (R is the alkyl group, such as C<sub>2</sub>H<sub>5</sub>Cl) + heat', eSubs);
+reactions.addRxn('Benzene Alkylbenzene', detail);
+
+detail = new rxnDetail('Sn + conc. HCl + heat', redn);
+reactions.addRxn('Nitrobenzene Phenylamine', detail);
+
+detail = new rxnDetail('Alkaline KMnO<sub>4</sub> + reflux, then acidify (e.g. with H<sub>2</sub>SO<sub>4</sub>', oxdn);
+detail.addNote('No matter how long the alkyl side chain is, the end product will always be benzoic acid');
+reactions.addRxn('Alkylbenzene Benzoic acid', detail);
+
+detail = new rxnDetail('HNO<sub>2</sub> at < 5&#176C', 'Diazotisation')
+reactions.addRxn('Phenylamine Benzene diazonium chloride', detail);
+
+detail = new rxnDetail('Phenol (or any phenol derivative) + NaOH(aq) at < 5&#176C', 'Coupling')
+reactions.addRxn('Benzene diazonium chloride Azo dye', detail);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -477,7 +512,7 @@ function autocomplete(inp) {
 
     document.addEventListener("click", (event) => {
         if (parent.querySelector('.autocomplete-div') !== null) { 
-            if (event.target.closest('.autocomplete-div') || event.target.closest('.autocomplete')) {
+            if (event.target.closest('.autocomplete-div') || event.target.closest('#' + inp.id)) {
                 return;
             } 
             parent.querySelector('.autocomplete-div').remove();
@@ -535,8 +570,6 @@ function autocompleteClick(item) {
     form.value = output;
     parentDiv.querySelector('.autocomplete-div').remove();
 }
-
-
 
 autocomplete(document.getElementById('initial'));
 autocomplete(document.getElementById('product'));
